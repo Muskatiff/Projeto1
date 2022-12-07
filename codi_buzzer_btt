@@ -1,0 +1,53 @@
+int speakerPin=10;
+int buttonPin=7;
+int length=5;
+char notes[]="e gd cde gd e gD cg";
+int beats[]={1,1,1,1};
+int tempo=250;
+int estadoButton = 0;
+
+void playTone(int tone, int duration){
+  for (long i=0; i< duration*1000L; i+=tone*2){
+    digitalWrite(speakerPin,HIGH);
+    delayMicroseconds(tone);
+    digitalWrite(speakerPin,LOW);
+    delayMicroseconds(tone);
+  }
+}
+
+void playNote(char note,int duration){
+  char names[]={'c','d','e','f','g','a','b','C','D'};
+  int tones[]={1915,1700,1519,1432,1275,1136,1024,956,294};
+  
+  for(int i=0;i<8;i++){
+    if(names[i]==note)
+      playTone(tones[i],duration);
+  }
+}
+
+void setup()
+{
+  pinMode(A0,INPUT);
+  pinMode(speakerPin, OUTPUT);
+    pinMode(buttonPin, INPUT);
+}
+
+  
+void loop()
+{
+  estadoButton = digitalRead(buttonPin);
+  if (estadoButton == HIGH) {//Se estadoButton for igual a HIGH ou 1
+
+  }
+  else { //Senão = estadoButton for igual a LOW ou 0
+     for(int i=0;i<length;i++){
+    if(notes[i]==' ')
+      delay(tempo);
+    else
+    playNote(notes[i],2*tempo);
+    
+    delay(tempo*2);
+}
+  }
+
+}
